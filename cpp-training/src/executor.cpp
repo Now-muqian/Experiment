@@ -6,6 +6,8 @@
 
     void Executor::Execute(char command)
     {
+        if(fast==0)
+     {
         switch (command)
         {
         case 'M':
@@ -21,9 +23,46 @@
         TurnRight();  
         break;
         }
+        case 'F':
+        {
+            fast=1;
+        }
         default:
             break;
+       }
+      }
+      else 
+      {
+        switch (command)
+        {
+        case 'M':
+        {
+        Move();
+        Move();
+        break;
+        }  
+        case 'L':
+        {
+        Move();
+        TurnLeft();
+        break;
         }
+        case 'R':
+        {
+        Move();
+        TurnRight();  
+        break;
+        }
+        case 'F':
+        {
+            fast=0;
+        }
+        default:
+            break;
+       }
+      }
+
+       
         return;
     }
     void Executor::ExecuteCommands(std::string commands)

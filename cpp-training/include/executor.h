@@ -19,6 +19,7 @@ class Executor
     int32_t x,y;
     char heading;
     char turnSequence[8]={'S','0','W','S','0','E','N','W'};
+    int fast=0;
     void TurnLeft();
     void TurnRight();
     void Move();
