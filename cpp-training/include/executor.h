@@ -3,28 +3,32 @@
 
 #include<cstdint>
 #include<string>
+struct  Pose
+{
+    int32_t x;
+    int32_t y;
+    char heading;
+};
+
+
 
 class Executor
 {
     public:
-    Executor();
-    Executor(int x,int y,char heading);
+    Executor(void)=default;
+    virtual ~Executor(void ) = default;
 
-    void Execute(char command);
-    void ExecuteCommands(std::string commands);
-    std::string GetStatus() const;
+    public:
+    virtual void Execute(const std::string& commands)=0;
+    virtual void ExecuteOnce(char& command)=0;
+    virtual Pose GetStatus() const=0;
 
 
     private:
-    int32_t x,y;
-    char heading;
-    char turnSequence[8]={'S','0','W','S','0','E','N','W'};
-    int fast=0;
-    void TurnLeft();
-    void TurnRight();
-    void Move();
-
-
+;
+    virtual void TurnLeft()=0;
+    virtual void TurnRight()=0;
+    virtual void Move()=0;
 };
 
 #endif

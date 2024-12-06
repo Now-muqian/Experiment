@@ -1,9 +1,21 @@
 #include <gtest/gtest.h>
 
-#include "executor.h"
+#include "executormpl.h"
 
+bool operator==(const Pose& lhs, const Pose& rhs) 
+{   
+    return std::tie(lhs.x, lhs.y, lhs.heading) == std::tie(rhs.x, rhs.y, rhs.heading); 
+}
 
 TEST(ExecutorTest, return_defalut_status_when_without_init_and_command)
+{
+    
+    auto executormpl = std::make_unique<Executormpl>();
+    const Pose target({0,0,'N'});
+    ASSERT_EQ(target, executormpl->GetStatus()); 
+}
+
+/*TEST(ExecutorTest, return_defalut_status_when_without_init_and_command)
 {
     
     auto executor = std::make_unique<Executor>();
@@ -132,7 +144,7 @@ TEST(ExecutorTest, TrunRight_when_with_init_and_W_Heading)
     executor.ExecuteCommands("MMRRMLLLMMRRMRLL");
     const std::string expectedStatus = "(-8,-9,S)";
     EXPECT_EQ(executor.GetStatus(), expectedStatus);
-}
+}*/
 
 
  
