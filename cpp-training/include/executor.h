@@ -23,12 +23,6 @@ class Executor
     virtual void ExecuteOnce(char& command)=0;
     virtual Pose GetStatus() const=0;
 
-
-    private:
-;
-    virtual void TurnLeft()=0;
-    virtual void TurnRight()=0;
-    virtual void Move()=0;
 };
 
 #endif

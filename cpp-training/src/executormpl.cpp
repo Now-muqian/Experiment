@@ -1,5 +1,6 @@
 #include"executormpl.h"
 #include<iostream>
+#include<memory>
 
     Executormpl::Executormpl(){pose={0,0,'N'};}
     
@@ -7,27 +8,32 @@
 
     void Executormpl::ExecuteOnce(char& command)
     {
-        
-     
+        std::unique_ptr<ICommand> cmder;
         switch (command)
         {
         case 'M':
-        Move();
-        break;
-            
+        {
+       cmder=std::make_unique<MoveCommand>();
+         break;
+        }
+
         case 'L':
-        TurnLeft();
-        break;
-        
+        {
+       cmder=std::make_unique<TurnLeftCommand>();
+        break; 
+        }
         case 'R':
         {
-        TurnRight();  
+        cmder=std::make_unique<TurnRightCommand>();
         break;
         }
         default:
             break;
        }
-       
+       if(cmder)
+       {
+        cmder->DoOperate(*this);
+       }
         return;
     }
     void Executormpl::Execute(const std::string& commands)
@@ -86,4 +92,8 @@
         turnSequence[4]='S';
         pose.heading=turnSequence[(pose.heading-1)%8];
         return ;
+    }
+    void Executormpl::Fast()
+    {
+        isFast=1-isFast;
     }
