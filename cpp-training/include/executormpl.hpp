@@ -12,7 +12,7 @@ class Executormpl final :public Executor
 
     public:
     void Execute(const std::string& commands) override;
-    void ExecuteOnce(char& command)override;
+
    Pose Query()const override;
    private:
    PoseHandler poseHandler;

@@ -34,6 +34,35 @@ void PoseHandler::Move()
         }
         return;
 }
+void PoseHandler::Backward()
+{
+     switch(pose.heading)
+        {
+            case 'N':
+            {
+                pose.y-=1;
+                break;
+            }
+            case 'S':
+            {
+                pose.y+=1;
+                break;
+            }
+            case 'W':
+            {
+                pose.x+=1;
+                break;
+            }
+            case 'E':
+            {
+                pose.x-=1;
+                break;
+            }
+            default:
+            break;
+        }
+        return;
+}
     void PoseHandler::TurnLeft()
     {
         turnSequence[4]='E';
@@ -50,8 +79,15 @@ void PoseHandler::Move()
     {
         fast=!fast;
     }
+     void PoseHandler::Back()
+    {
+        back=!back;
+    }
     bool PoseHandler::IsFast () const
     {
         return fast;
     }
-    
+    bool PoseHandler::IsBack()const
+    {
+        return back;
+    }

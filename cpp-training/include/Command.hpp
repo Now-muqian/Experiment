@@ -1,60 +1,101 @@
 #pragma once
-
+#include <functional>
 #include"PoseHandler.hpp"
 
-    class ICommand
-     {
-      public:
-      
-      virtual ~ICommand()=default;
-      virtual void DoOperate(PoseHandler& executor)const =0;
-    
-     };
-    class MoveCommand:public ICommand
-     {
-     public:
-     void DoOperate(PoseHandler& executor)const override
-     {
-      if(executor.IsFast())
-      {
-         executor.Move();
-      }
-         executor.Move();
-        
-     }
-     };
-    class TurnLeftCommand:public ICommand
-     {
-     public:
-     void DoOperate(PoseHandler& executor)const override
-     {
-      if(executor.IsFast())
-      {
-         executor.Move();
-      }
-         executor.TurnLeft();
-        
-     }
-     };
-    class TurnRightCommand:public ICommand
-     {
-     public:
-     void DoOperate(PoseHandler& executor)const override
-     {
-      if(executor.IsFast())
-      {
-         executor.Move();
-      }
-         executor.TurnRight();
-        
-     }
-     };
-    class FastCommand:public ICommand
-     {
-      public:
-      void DoOperate(PoseHandler& executor)const override
-      {
-         executor.Fast();
-      }
-     };
 
+    class MoveCommand final 
+     {
+     public:
+     void operator()(PoseHandler& poseHandler) noexcept 
+     {
+      if(poseHandler.IsBack())
+      {
+         if(poseHandler.IsFast())
+         {
+            poseHandler.Backward();
+         }
+        poseHandler.Backward();
+      }
+      else
+      {
+         if(poseHandler.IsFast())
+         {
+            poseHandler.Move();
+         }
+         poseHandler.Move();
+      }
+        
+     };
+     };
+     class BackwardCommand final
+     {
+      public:
+      void operator()(PoseHandler& poseHandler) noexcept 
+     {
+         poseHandler.Backward();
+      };
+     };
+    class TurnLeftCommand final//:public ICommand
+     {
+     public:
+     void operator()(PoseHandler& poseHandler) noexcept 
+     {
+      if(poseHandler.IsBack())
+      {
+         if(poseHandler.IsFast())
+         {
+            poseHandler.Backward();
+         }
+         poseHandler.TurnRight();
+      }
+      else
+      {
+         if(poseHandler.IsFast())
+         {
+            poseHandler.Move();
+         }
+         poseHandler.TurnLeft();
+      } 
+        
+        
+     };
+     };
+    class TurnRightCommand final
+    {
+     public:
+     void operator()(PoseHandler& poseHandler) noexcept 
+     {
+        if(poseHandler.IsBack())
+      {
+         if(poseHandler.IsFast())
+         {
+            poseHandler.Backward();
+         }
+         poseHandler.TurnLeft();
+      }
+      else
+      {
+         if(poseHandler.IsFast())
+         {
+            poseHandler.Move();
+         }
+         poseHandler.TurnRight();
+      } 
+     };
+     };
+    class FastCommand final
+     {
+      public:
+      void operator()(PoseHandler& poseHandler) noexcept 
+     {
+         poseHandler.Fast();
+      };
+     };
+    class BackCommand final
+     {
+      public:
+      void operator()(PoseHandler& poseHandler) noexcept 
+     {
+         poseHandler.Back();
+      };
+     };

@@ -19,7 +19,7 @@ class Executor
 
     public:
     virtual void Execute(const std::string& commands)=0;
-    virtual void ExecuteOnce(char& command)=0;
+
     virtual Pose Query() const=0;
 
 };
