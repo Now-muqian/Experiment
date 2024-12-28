@@ -6,7 +6,7 @@
 
     Executormpl::Executormpl():poseHandler(){}
     
-    Executormpl::Executormpl(const Pose& pose):poseHandler(pose){}
+    Executormpl::Executormpl(const Pose& pose,Cartype type):poseHandler(pose,type){}
     Pose Executormpl::Query()const
     {
         return poseHandler.Query();

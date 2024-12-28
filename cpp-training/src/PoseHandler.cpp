@@ -1,6 +1,7 @@
 #include "PoseHandler.hpp"
-PoseHandler::PoseHandler(){pose={0,0,'N'};}
-PoseHandler::PoseHandler(const Pose&pose):pose(pose){}
+PoseHandler::PoseHandler(){pose={0,0,'N'};type=Car;}
+PoseHandler::PoseHandler(const Pose& pose,Cartype& type):pose(pose),type(type){}
+
 Pose PoseHandler::Query()const
 {
     return pose;
@@ -90,4 +91,8 @@ void PoseHandler::Backward()
     bool PoseHandler::IsBack()const
     {
         return back;
+    }
+    Cartype PoseHandler::QueryType()const
+    {
+        return type;
     }
