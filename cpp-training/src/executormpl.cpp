@@ -1,13 +1,18 @@
-#include"executormpl.h"
+#include"executormpl.hpp"
+#include"Command.hpp"
 #include<iostream>
 #include<memory>
 
-    Executormpl::Executormpl(){pose={0,0,'N'};}
+    Executormpl::Executormpl():poseHandler(){}
     
-    Executormpl::Executormpl(const Pose& pose):pose(pose){}
-
+    Executormpl::Executormpl(const Pose& pose):poseHandler(pose){}
+    Pose Executormpl::Query()const
+    {
+        return poseHandler.Query();
+    }
     void Executormpl::ExecuteOnce(char& command)
     {
+        
         std::unique_ptr<ICommand> cmder;
         switch (command)
         {
@@ -27,12 +32,17 @@
         cmder=std::make_unique<TurnRightCommand>();
         break;
         }
+        case 'F':
+        {
+        cmder=std::make_unique<FastCommand>();
+        break;
+        }
         default:
             break;
        }
        if(cmder)
        {
-        cmder->DoOperate(*this);
+        cmder->DoOperate(poseHandler);
        }
         return;
     }
@@ -45,55 +55,5 @@
 
         return;
     }
-    Pose Executormpl::GetStatus() const 
-  {
-     
-    return pose;
-}
 
     
-    void Executormpl::Move()
-    {
-        switch(pose.heading)
-        {
-            case 'N':
-            {
-                pose.y+=1;
-                break;
-            }
-            case 'S':
-            {
-                pose.y-=1;
-                break;
-            }
-            case 'W':
-            {
-                pose.x-=1;
-                break;
-            }
-            case 'E':
-            {
-                pose.x+=1;
-                break;
-            }
-            default:
-            break;
-        }
-        return;
-    }
-    void Executormpl::TurnLeft()
-    {
-        turnSequence[4]='E';
-        pose.heading=turnSequence[(pose.heading+1)%8];
-        return ;
-    }
-    void Executormpl::TurnRight()
-    {
-        turnSequence[4]='S';
-        pose.heading=turnSequence[(pose.heading-1)%8];
-        return ;
-    }
-    void Executormpl::Fast()
-    {
-        isFast=1-isFast;
-    }

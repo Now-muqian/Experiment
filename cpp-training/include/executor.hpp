@@ -1,5 +1,4 @@
-#ifndef EXECUTOR_H
-#define EXECUTOR_H
+#pragma once
 
 #include<cstdint>
 #include<string>
@@ -21,8 +20,7 @@ class Executor
     public:
     virtual void Execute(const std::string& commands)=0;
     virtual void ExecuteOnce(char& command)=0;
-    virtual Pose GetStatus() const=0;
+    virtual Pose Query() const=0;
 
 };
 
-#endif
